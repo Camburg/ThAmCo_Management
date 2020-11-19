@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Management.Data;
+using Management.Interfaces;
+using Management.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,12 +17,14 @@ namespace Management
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -29,6 +33,18 @@ namespace Management
             {
                 options.UseMySql(Configuration.GetConnectionString("ManagementDbConnectionString"));
             });
+
+            if (Environment.IsDevelopment())
+            {
+                addMockServices(services);
+            }
+            else 
+            {
+                addRealServices(services);
+            }
+
+            
+
             services.AddControllersWithViews();
         }
 
@@ -58,6 +74,26 @@ namespace Management
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private void AddRealServices(IServiceCollection services)
+        {
+            services.AddSingleton<IAccountsService, MockAccountsService>();
+            services.AddSingleton<ISysLogsService, MockSysLogsService>();
+            services.AddSingleton<IStockService, MockStockService>();
+            services.AddHttpClient<IAccountsService, MockAccountsService>("Accounts Service");
+            services.AddHttpClient<ISysLogsService, MockSysLogsService>("System Logs Service");
+            services.AddHttpClient<IStockService, MockStockService>("Stock Service");
+        }
+
+        private void AddMockServices(IServiceCollection services)
+        {
+            services.AddSingleton<IAccountsService, AccountsService>();
+            services.AddSingleton<ISysLogsService, SysLogsService>();
+            services.AddSingleton<IStockService, StockService>();
+            services.AddHttpClient<IAccountsService, AccountsService>("Accounts Service");
+            services.AddHttpClient<ISysLogsService, SysLogsService>("System Logs Service");
+            services.AddHttpClient<IStockService, StockService>("Stock Service");
         }
     }
 }
