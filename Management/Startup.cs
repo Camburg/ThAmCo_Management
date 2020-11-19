@@ -27,7 +27,7 @@ namespace Management
         {
             services.AddDbContext<ManagementDbContext>(options =>
             {
-                options.UseMySQL(Configuration.GetConnectionString("ManagementDbConnectionString"));
+                options.UseMySql(Configuration.GetConnectionString("ManagementDbConnectionString"));
             });
             services.AddControllersWithViews();
         }
