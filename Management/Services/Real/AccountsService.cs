@@ -1,4 +1,5 @@
-﻿using Management.Interfaces;
+﻿using Management.Dto;
+using Management.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,9 @@ namespace Management.Services
             _client = client;
         }
 
+        public Task<IEnumerable<AccountDto>> GetStaffAccounts()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
