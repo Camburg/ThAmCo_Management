@@ -9,15 +9,8 @@ using System.Threading.Tasks;
 
 namespace Management.Services
 {
-    public class MockStockService : IStockService
+    public class FakeStockService : IStockService
     {
-        private readonly HttpClient _client;
-
-        MockStockService(HttpClient client)
-        {
-            _client = client;
-        }
-
         public Task<PurchaseRequest> PutRequestStatus([FromBody] Guid requestId, bool approval)
         {
             throw new NotImplementedException();

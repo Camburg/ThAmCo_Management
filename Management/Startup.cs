@@ -36,14 +36,12 @@ namespace Management
 
             if (Environment.IsDevelopment())
             {
-                addMockServices(services);
+                AddMockServices(services);
             }
             else 
             {
-                addRealServices(services);
+                AddRealServices(services);
             }
-
-            
 
             services.AddControllersWithViews();
         }
@@ -76,17 +74,14 @@ namespace Management
             });
         }
 
-        private void AddRealServices(IServiceCollection services)
+        private void AddMockServices(IServiceCollection services)
         {
-            services.AddSingleton<IAccountsService, MockAccountsService>();
-            services.AddSingleton<ISysLogsService, MockSysLogsService>();
-            services.AddSingleton<IStockService, MockStockService>();
-            services.AddHttpClient<IAccountsService, MockAccountsService>("Accounts Service");
-            services.AddHttpClient<ISysLogsService, MockSysLogsService>("System Logs Service");
-            services.AddHttpClient<IStockService, MockStockService>("Stock Service");
+            services.AddSingleton<IAccountsService, FakeAccountsService>();
+            services.AddSingleton<ISysLogsService, FakeSysLogsService>();
+            services.AddSingleton<IStockService, FakeStockService>();
         }
 
-        private void AddMockServices(IServiceCollection services)
+        private void AddRealServices(IServiceCollection services)
         {
             services.AddSingleton<IAccountsService, AccountsService>();
             services.AddSingleton<ISysLogsService, SysLogsService>();

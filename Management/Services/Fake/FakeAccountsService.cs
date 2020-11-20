@@ -8,15 +8,8 @@ using System.Threading.Tasks;
 
 namespace Management.Services
 {
-    public class MockAccountsService : IAccountsService
+    public class FakeAccountsService : IAccountsService
     {
-        private HttpClient _client;
-
-        MockAccountsService(HttpClient client)
-        {
-            _client = client;
-        }
-
         public Task<IEnumerable<AccountDto>> GetStaffAccounts()
         {
             throw new NotImplementedException();

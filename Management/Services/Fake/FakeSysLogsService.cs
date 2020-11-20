@@ -8,15 +8,8 @@ using System.Threading.Tasks;
 
 namespace Management.Services
 {
-    public class MockSysLogsService : ISysLogsService
+    public class FakeSysLogsService : ISysLogsService
     {
-        private HttpClient _client;
-
-        MockSysLogsService(HttpClient client)
-        {
-            _client = client;
-        }
-
         public Task<IEnumerable<SystemLogDto>> GetAllStaffSystemLogs()
         {
             throw new NotImplementedException();
