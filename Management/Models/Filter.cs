@@ -4,13 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Management.Dto
+namespace Management.Models
 {
-    public class SystemLogDto
+    public class Filter
     {
-        public Guid Id { get; set; }
         public string ComponentName { get; set; }
-        public string Details { get; set; }
         public string Role { get; set; }
         public DateTime Date { get; set; }
         public AlertType AlertType { get; set; }

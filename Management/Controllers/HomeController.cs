@@ -6,21 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Management.Models;
+using Management.Interfaces;
 
 namespace Management.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ISysLogsService _sysLogsService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ISysLogsService sysLogsService)
         {
             _logger = logger;
+            _sysLogsService = sysLogsService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _sysLogsService.GetAllSystemLogs());
         }
 
         public IActionResult Privacy()

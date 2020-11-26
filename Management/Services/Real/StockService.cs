@@ -18,7 +18,7 @@ namespace Management.Services
             _client = client;
         }
 
-        public Task<PurchaseRequest> PutRequestStatus([FromBody] Guid requestId, bool approval)
+        public async Task<PurchaseRequest> PutRequestStatus([FromBody] Guid requestId, bool approval)
         {
             throw new NotImplementedException();
         }

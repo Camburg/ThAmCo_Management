@@ -1,5 +1,6 @@
 ﻿using Management.Dto;
 using Management.Interfaces;
+using Management.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,22 +18,22 @@ namespace Management.Services
             _client = client;
         }
 
-        public Task<IEnumerable<SystemLogDto>> GetAllStaffSystemLogs()
+        public async Task<IEnumerable<SystemLogDto>> GetAllStaffSystemLogs()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<SystemLogDto>> GetAllSystemLogs()
+        public async Task<IEnumerable<SystemLogDto>> GetAllSystemLogs()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<SystemLogDto>> GetAllUserSystemLogs()
+        public async Task<IEnumerable<SystemLogDto>> GetAllUserSystemLogs()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<SystemLogDto>> GetFilteredSystemLogs()
+        public async Task<IEnumerable<SystemLogDto>> GetFilteredSystemLogs(Filter Filter)
         {
             throw new NotImplementedException();
         }
