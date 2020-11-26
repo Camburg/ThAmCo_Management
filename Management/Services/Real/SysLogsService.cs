@@ -18,22 +18,22 @@ namespace Management.Services
             _client = client;
         }
 
-        public async Task<IEnumerable<SystemLogDto>> GetAllStaffSystemLogs()
+        public async Task<List<SystemLogDto>> GetAllStaffSystemLogs()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<SystemLogDto>> GetAllSystemLogs()
+        public async Task<List<SystemLogDto>> GetAllSystemLogs()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<SystemLogDto>> GetAllUserSystemLogs()
+        public async Task<List<SystemLogDto>> GetAllUserSystemLogs()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<SystemLogDto>> GetFilteredSystemLogs(Filter Filter)
+        public async Task<List<SystemLogDto>> GetFilteredSystemLogs(Filter Filter)
         {
             throw new NotImplementedException();
         }

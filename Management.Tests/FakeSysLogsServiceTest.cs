@@ -1,19 +1,19 @@
-﻿using Management.Dto;
+using Management.Dto;
 using Management.Enums;
-using Management.Interfaces;
+using Management.Services;
 using Management.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
+using Xunit;
 
-namespace Management.Services
+namespace Management.Tests
 {
-    public class FakeSysLogsService : ISysLogsService
+    public class FakeSysLogsServiceTest
     {
-
-        private readonly List<SystemLogDto> Logs = new List<SystemLogDto>
+        private readonly FakeSysLogsService _service;
+        private readonly IEnumerable<SystemLogDto> TestLogs = new SystemLogDto[]
             {
                 new SystemLogDto
                 {
@@ -90,41 +90,64 @@ namespace Management.Services
 
             };
 
-        public async Task<List<SystemLogDto>> GetAllStaffSystemLogs()
+        public FakeSysLogsServiceTest()
         {
-            return Logs.Where(x => x.Role.Equals("Staff", StringComparison.CurrentCulture)).ToList();
+            _service = new FakeSysLogsService();
         }
 
-        public async Task<List<SystemLogDto>> GetAllSystemLogs()
+        [Fact]
+        public async Task TestGetAllSystemLogsCorrectClass()
         {
-            return Logs.ToList();
+            var Logs = await _service.GetAllSystemLogs();
+
+            Assert.IsAssignableFrom<List<SystemLogDto>>(Logs);
         }
 
-        public async Task<List<SystemLogDto>> GetAllUserSystemLogs()
+        [Fact]
+        public async Task TestGetAllSystemLogsDataGiven()
         {
-            return Logs.Where(x => x.Role.Equals("User", StringComparison.CurrentCulture)).ToList();
+            List<SystemLogDto> Logs = await _service.GetAllSystemLogs();
+            List<string> TestDetails = TestLogs.Select(x => x.Details).ToList();
+            List<string> ActualDetails = Logs.Select(x => x.Details).ToList();
+
+            Assert.Equal(TestDetails, ActualDetails);
         }
 
-        public async Task<List<SystemLogDto>> GetFilteredSystemLogs(Filter Filter)
+        [Fact]
+        public async Task TestGetAllUserSystemLogs()
         {
-            List<SystemLogDto> returnLogs = Logs;
-            if (Filter.Date != default)
+            List<SystemLogDto> Logs = await _service.GetAllUserSystemLogs();
+            List<string> TestDetails = TestLogs.Where(x => x.Role.Equals("User")).Select(x => x.Details).ToList();
+            List<string> ActualDetails = Logs.Select(x => x.Details).ToList();
+
+            Assert.Equal(TestDetails, ActualDetails);
+        }
+
+        [Fact]
+        public async Task TestGetAllStaffSystemLogs()
+        {
+            List<SystemLogDto> Logs = await _service.GetAllStaffSystemLogs();
+            List<string> TestDetails = TestLogs.Where(x => x.Role.Equals("Staff")).Select(x => x.Details).ToList();
+            List<string> ActualDetails = Logs.Select(x => x.Details).ToList();
+
+            Assert.Equal(TestDetails, ActualDetails);
+        }
+
+        [Fact]
+        public async Task TestGetFilteredSystemLogs()
+        {
+            Filter filter = new Filter
             {
-                returnLogs = returnLogs.Where(x => x.Date == Filter.Date).ToList();
-            }
-            if (Filter.ComponentName != null)
-            {
-                returnLogs = returnLogs.Where(x => x.ComponentName.Equals(Filter.ComponentName)).ToList();
-            }
-            if (Filter.AlertType != AlertType.NONE)
-            {
-                returnLogs = returnLogs.Where(x => x.AlertType == Filter.AlertType).ToList();
-            }
-            if (Filter.Role != null)
-            {
-                returnLogs = returnLogs.Where(x => x.Role.Equals(Filter.Role)).ToList();
-            }
-            return returnLogs;
+                AlertType = AlertType.ERROR,
+                ComponentName = null,
+                Date = default,
+                Role = null
+            };
+            List<SystemLogDto> Logs = await _service.GetFilteredSystemLogs(filter);
+            var TestDetails = "Accounts List failed to Load";
+            var ActualDetails = Logs.FirstOrDefault().Details;
+
+            Assert.Equal(TestDetails, ActualDetails);
         }
     }
 }

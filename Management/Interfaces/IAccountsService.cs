@@ -8,6 +8,6 @@ namespace Management.Interfaces
 {
     public interface IAccountsService
     {
-        public Task<IEnumerable<AccountDto>> GetStaffAccounts();
+        public Task<List<AccountDto>> GetStaffAccounts();
     }
 }

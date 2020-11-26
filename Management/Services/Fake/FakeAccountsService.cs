@@ -10,7 +10,7 @@ namespace Management.Services
 {
     public class FakeAccountsService : IAccountsService
     {
-        public async Task<IEnumerable<AccountDto>> GetStaffAccounts()
+        public async Task<List<AccountDto>> GetStaffAccounts()
         {
             throw new NotImplementedException();
         }

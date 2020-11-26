@@ -17,7 +17,7 @@ namespace Management.Services
             _client = client;
         }
 
-        public async Task<IEnumerable<AccountDto>> GetStaffAccounts()
+        public async Task<List<AccountDto>> GetStaffAccounts()
         {
             throw new NotImplementedException();
         }

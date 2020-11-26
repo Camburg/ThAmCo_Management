@@ -10,9 +10,9 @@ namespace Management.Interfaces
     //SysLogsService makes HTTP calls to the System Logs component in order to get these values
     public interface ISysLogsService
     {
-        public Task<IEnumerable<SystemLogDto>> GetAllSystemLogs();
-        public Task<IEnumerable<SystemLogDto>> GetAllStaffSystemLogs();
-        public Task<IEnumerable<SystemLogDto>> GetAllUserSystemLogs();
-        public Task<IEnumerable<SystemLogDto>> GetFilteredSystemLogs(Filter Filter);
+        public Task<List<SystemLogDto>> GetAllSystemLogs();
+        public Task<List<SystemLogDto>> GetAllStaffSystemLogs();
+        public Task<List<SystemLogDto>> GetAllUserSystemLogs();
+        public Task<List<SystemLogDto>> GetFilteredSystemLogs(Filter Filter);
     }
 }
