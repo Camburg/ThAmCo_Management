@@ -40,7 +40,8 @@ namespace Management
             }
             else 
             {
-                AddRealServices(services);
+                //Change this back to Real later
+                AddMockServices(services);
             }
 
             services.AddControllersWithViews();
