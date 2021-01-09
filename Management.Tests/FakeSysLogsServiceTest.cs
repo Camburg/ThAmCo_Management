@@ -114,26 +114,6 @@ namespace Management.Tests
         }
 
         [Fact]
-        public async Task TestGetAllUserSystemLogs()
-        {
-            List<SystemLogDto> Logs = await _service.GetAllUserSystemLogs();
-            List<string> TestDetails = TestLogs.Where(x => x.Role.Equals("User")).Select(x => x.Details).ToList();
-            List<string> ActualDetails = Logs.Select(x => x.Details).ToList();
-
-            Assert.Equal(TestDetails, ActualDetails);
-        }
-
-        [Fact]
-        public async Task TestGetAllStaffSystemLogs()
-        {
-            List<SystemLogDto> Logs = await _service.GetAllStaffSystemLogs();
-            List<string> TestDetails = TestLogs.Where(x => x.Role.Equals("Staff")).Select(x => x.Details).ToList();
-            List<string> ActualDetails = Logs.Select(x => x.Details).ToList();
-
-            Assert.Equal(TestDetails, ActualDetails);
-        }
-
-        [Fact]
         public async Task TestGetFilteredSystemLogs()
         {
             Filter filter = new Filter

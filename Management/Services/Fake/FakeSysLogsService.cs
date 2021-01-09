@@ -90,19 +90,9 @@ namespace Management.Services
 
             };
 
-        public async Task<List<SystemLogDto>> GetAllStaffSystemLogs()
-        {
-            return Logs.Where(x => x.Role.Equals("Staff", StringComparison.CurrentCulture)).ToList();
-        }
-
         public async Task<List<SystemLogDto>> GetAllSystemLogs()
         {
             return Logs.ToList();
-        }
-
-        public async Task<List<SystemLogDto>> GetAllUserSystemLogs()
-        {
-            return Logs.Where(x => x.Role.Equals("User", StringComparison.CurrentCulture)).ToList();
         }
 
         public async Task<List<SystemLogDto>> GetFilteredSystemLogs(Filter Filter)

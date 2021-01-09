@@ -11,8 +11,6 @@ namespace Management.Interfaces
     public interface ISysLogsService
     {
         public Task<List<SystemLogDto>> GetAllSystemLogs();
-        public Task<List<SystemLogDto>> GetAllStaffSystemLogs();
-        public Task<List<SystemLogDto>> GetAllUserSystemLogs();
         public Task<List<SystemLogDto>> GetFilteredSystemLogs(Filter Filter);
     }
 }

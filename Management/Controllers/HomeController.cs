@@ -21,6 +21,7 @@ namespace Management.Controllers
             _sysLogsService = sysLogsService;
         }
 
+        //Page should have filters at the top that redirect to a filter page when used to search
         public async Task<IActionResult> Index()
         {
             return View(await _sysLogsService.GetAllSystemLogs());

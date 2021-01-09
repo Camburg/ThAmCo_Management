@@ -18,17 +18,7 @@ namespace Management.Services
             _client = client;
         }
 
-        public async Task<List<SystemLogDto>> GetAllStaffSystemLogs()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<List<SystemLogDto>> GetAllSystemLogs()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<SystemLogDto>> GetAllUserSystemLogs()
         {
             throw new NotImplementedException();
         }
