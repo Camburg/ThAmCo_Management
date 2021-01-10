@@ -1,8 +1,9 @@
 ﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using Microsoft.Extensions.Logging
 @model IEnumerable<Management.Dto.AccountDto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Account List";
 }
 
 <h1>Account List</h1>
@@ -34,19 +35,31 @@
             <td>
                 @{
                     var fullName = item.Forename + " " + item.Surname;
-                    Html.DisplayFor(modelItem => fullName);
+                    @Html.DisplayFor(modelItem => fullName);
                 }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-            <td>
-                @{
-                    Html.DisplayName(item.Roles.Any(r => r.Equals("Staff", StringComparison.CurrentCultureIgnoreCase)) ? "Staff" : "Non-Staff");
+            <td>@{
+                    string topRole;
+                    if (item.Roles.Contains("Admin"))
+                    {
+                        topRole = "Admin";
+                    }
+                    else if (item.Roles.Contains("Staff"))
+                    {
+                        topRole = "Staff";
+                    }
+                    else
+                    {
+                        topRole = "Customer";
+                    }
+                    @Html.DisplayFor(modelItem => topRole);
                 }
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Set Roles</a>
+                <a asp-action="SetRoles" asp-route-id="@item.Id">Set Roles</a>
             </td>
         </tr>
 }

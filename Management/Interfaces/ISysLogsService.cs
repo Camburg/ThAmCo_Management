@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Management.Interfaces
 {
@@ -12,5 +13,6 @@ namespace Management.Interfaces
     {
         public Task<List<SystemLogDto>> GetAllSystemLogs();
         public Task<List<SystemLogDto>> GetFilteredSystemLogs(Filter Filter);
+        public Task<IActionResult> SendSystemLog();
     }
 }
