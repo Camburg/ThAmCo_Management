@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Management.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Management.Services
+namespace Management.Services.Fake
 {
     public class FakeAccountsService : IAccountsService
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Management.Services
+namespace Management.Services.Fake
 {
     public class FakeStockService : IStockService
     {

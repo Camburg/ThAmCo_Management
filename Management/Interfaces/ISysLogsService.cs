@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Management.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Management.Interfaces
@@ -12,7 +13,7 @@ namespace Management.Interfaces
     public interface ISysLogsService
     {
         public Task<List<SystemLogDto>> GetAllSystemLogs();
-        public Task<List<SystemLogDto>> GetFilteredSystemLogs(Filter Filter);
-        public Task<IActionResult> SendSystemLog();
+        public Task<List<SystemLogDto>> GetFilteredSystemLogs(Filter filter);
+        public Task<bool> SendSystemLog(string componentName, string details, string role, AlertType alertType);
     }
 }

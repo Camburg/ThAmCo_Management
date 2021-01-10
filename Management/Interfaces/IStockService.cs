@@ -9,6 +9,6 @@ namespace Management.Interfaces
 {
     public interface IStockService
     {
-        Task<PurchaseRequest> PutRequestStatus([FromRoute] Guid requestId, bool approval);
+        public Task<PurchaseRequest> PutRequestStatus([FromRoute] Guid requestId, bool approval);
     }
 }

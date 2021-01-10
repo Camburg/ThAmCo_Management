@@ -10,7 +10,7 @@ using Management.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace Management.Services
+namespace Management.Services.Real
 {
     public class AccountsService : IAccountsService
     {

@@ -7,8 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Management.Services
+namespace Management.Services.Fake
 {
     public class FakeSysLogsService : ISysLogsService
     {
@@ -115,6 +116,11 @@ namespace Management.Services
                 returnLogs = returnLogs.Where(x => x.Role.Equals(Filter.Role)).ToList();
             }
             return returnLogs;
+        }
+
+        public async Task<bool> SendSystemLog(string componentName, string details, string role, AlertType alertType)
+        {
+            return true;
         }
     }
 }

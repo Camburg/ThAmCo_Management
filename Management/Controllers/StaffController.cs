@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Management.Dto;
+using Management.Enums;
 using Management.Interfaces;
 using Management.Models;
 using Management.Services;
@@ -15,11 +16,13 @@ namespace Management.Controllers
     public class StaffController : Controller
     {
         private readonly IAccountsService _accountsService;
+        private readonly ISysLogsService _sysLogsService;
         private readonly RoleList _roles;
 
-        public StaffController(IAccountsService accountsService)
+        public StaffController(IAccountsService accountsService, ISysLogsService sysLogsService)
         {
             _accountsService = accountsService;
+            _sysLogsService = sysLogsService;
             _roles = CreateRoleList();
         }
 
@@ -74,6 +77,8 @@ namespace Management.Controllers
             Role role = _roles.Roles.FirstOrDefault(x => x.RoleId == model.RoleId);
 
             await _accountsService.UpdateRoles(selectedAccount, role);
+
+            await _sysLogsService.SendSystemLog("Management", "Account Updated", "Admin", AlertType.INFO);
 
             return View("Index", await PopulateAccounts());
         }
