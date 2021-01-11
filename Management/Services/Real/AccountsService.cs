@@ -14,20 +14,19 @@ namespace Management.Services.Real
 {
     public class AccountsService : IAccountsService
     {
-        private HttpClient _client;
+        private readonly HttpClient _client;
 
         public AccountsService(HttpClient client)
         {
             _client = client;
+            _client.BaseAddress = new System.Uri("https://thamco-accounts.azurewebsites.net/");
         }
 
         public async Task<List<AccountDto>> GetAccounts()
         {
             List<AccountDto> accounts;
 
-            _client.BaseAddress = new System.Uri("https://thamco-accounts.azurewebsites.net/");
-
-            var response = await _client.GetAsync("account/Accounts");
+            var response = await _client.GetAsync("api/Account/accounts");
 
             if (response.IsSuccessStatusCode)
             {
@@ -46,9 +45,7 @@ namespace Management.Services.Real
         {
             var account = new AccountDto();
 
-            _client.BaseAddress = new System.Uri("https://thamco-accounts.azurewebsites.net/");
-
-            HttpResponseMessage response = await _client.GetAsync("id/" + id);
+            HttpResponseMessage response = await _client.GetAsync("api/Account/id/" + id);
 
             if (response.IsSuccessStatusCode)
             {
@@ -61,7 +58,6 @@ namespace Management.Services.Real
         //Updates the roles of the account to be the Role given
         public async Task<AccountDto> UpdateRoles(AccountDto account, Role role)
         {
-            _client.BaseAddress = new System.Uri("https://thamco-accounts.azurewebsites.net/");
             HttpResponseMessage response;
             List<string> diff;
             List<string> def = new List<string>{"Customer"};
@@ -84,9 +80,14 @@ namespace Management.Services.Real
             else if (role.RolesList.Count > account.Roles.Count)
             {
                 diff = role.RolesList.Except(account.Roles).ToList();
-                foreach(string rl in diff)
+                if (diff.Count == 2)
                 {
-                    await AddRole(account, rl);
+                    await AddRole(account, "Staff");
+                    await AddRole(account, "Admin");
+                }
+                else
+                {
+                    await AddRole(account, diff.FirstOrDefault().ToString());
                 }
                 account.Roles = role.RolesList;
             }
@@ -96,14 +97,12 @@ namespace Management.Services.Real
 
         private async Task RemoveRole(AccountDto account, string role)
         {
-            _client.BaseAddress = new System.Uri("https://thamco-accounts.azurewebsites.net/");
-            HttpResponseMessage response = await _client.PutAsync($"removeRole/{account.Id}/{role}", null);
+            HttpResponseMessage response = await _client.PutAsync($"api/Account/removeRole/{account.Id}/{role}", null);
         }
 
         private async Task AddRole(AccountDto account, string role)
         {
-            _client.BaseAddress = new System.Uri("https://thamco-accounts.azurewebsites.net/");
-            HttpResponseMessage response = await _client.PutAsync($"addRole/{account.Id}/{role}", null);
+            HttpResponseMessage response = await _client.PutAsync($"api/Account/addRole/{account.Id}/{role}", null);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Management
 
             if (Environment.IsDevelopment())
             {
-                AddMockServices(services);
+                AddRealServices(services);
             }
             else 
             {
