@@ -27,7 +27,7 @@ namespace Management.Controllers
         }
 
         //populates the list of accounts by calling the Accounts Service
-        private async Task<List<AccountDto>> PopulateAccounts()
+        private async Task<List<AccountDto>> UpdateAccountList()
         {
             var accounts = await _accountsService.GetAccounts();
             //Orders the accounts so that accounts with the most roles are at the top
@@ -40,7 +40,7 @@ namespace Management.Controllers
         public async Task<IActionResult> Index()
         {
             //Checks whether the accounts are loaded so that the page can load
-            return View(await PopulateAccounts());
+            return View(await UpdateAccountList());
         }
 
         // GET: StaffController/SetRoles
@@ -80,7 +80,7 @@ namespace Management.Controllers
 
             await _sysLogsService.SendSystemLog("Management", "Account Updated", "Admin", AlertType.INFO);
 
-            return View("Index", await PopulateAccounts());
+            return View("Index", await UpdateAccountList());
         }
 
         private RoleList CreateRoleList()

@@ -19,14 +19,13 @@ namespace Management.Services.Real
         public AccountsService(HttpClient client)
         {
             _client = client;
-            _client.BaseAddress = new System.Uri("https://thamco-accounts.azurewebsites.net/");
         }
 
         public async Task<List<AccountDto>> GetAccounts()
         {
             List<AccountDto> accounts;
 
-            var response = await _client.GetAsync("api/Account/accounts");
+            var response = await _client.GetAsync("accounts");
 
             if (response.IsSuccessStatusCode)
             {
@@ -45,7 +44,7 @@ namespace Management.Services.Real
         {
             var account = new AccountDto();
 
-            HttpResponseMessage response = await _client.GetAsync("api/Account/id/" + id);
+            HttpResponseMessage response = await _client.GetAsync("id/" + id);
 
             if (response.IsSuccessStatusCode)
             {
@@ -58,9 +57,8 @@ namespace Management.Services.Real
         //Updates the roles of the account to be the Role given
         public async Task<AccountDto> UpdateRoles(AccountDto account, Role role)
         {
-            HttpResponseMessage response;
             List<string> diff;
-            List<string> def = new List<string>{"Customer"};
+            var def = new List<string>{"Customer"};
             
             //checks whether it needs to remove roles or add them
             if (account.Roles.Count > role.RolesList.Count)
@@ -97,12 +95,12 @@ namespace Management.Services.Real
 
         private async Task RemoveRole(AccountDto account, string role)
         {
-            HttpResponseMessage response = await _client.PutAsync($"api/Account/removeRole/{account.Id}/{role}", null);
+            var response = await _client.PutAsync($"removeRole/{account.Id}/{role}", null);
         }
 
         private async Task AddRole(AccountDto account, string role)
         {
-            HttpResponseMessage response = await _client.PutAsync($"api/Account/addRole/{account.Id}/{role}", null);
+            var response = await _client.PutAsync($"addRole/{account.Id}/{role}", null);
         }
     }
 }

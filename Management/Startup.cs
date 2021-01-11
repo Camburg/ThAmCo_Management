@@ -39,7 +39,7 @@ namespace Management
 
             if (Environment.IsDevelopment())
             {
-                AddRealServices(services);
+                AddMockServices(services);
             }
             else 
             {
@@ -90,9 +90,9 @@ namespace Management
 
         private void AddRealServices(IServiceCollection services)
         {
-            services.AddHttpClient<IAccountsService, AccountsService>("Accounts Service");
-            services.AddHttpClient<ISysLogsService, SysLogsService>("System Logs Service");
-            services.AddHttpClient<IStockService, StockService>("Stock Service");
+            services.AddHttpClient<IAccountsService, AccountsService>("Accounts Service", x => x.BaseAddress = new Uri("https://thamco-accounts.azurewebsites.net/api/Account/"));
+            services.AddHttpClient<ISysLogsService, SysLogsService>("System Logs Service", x => x.BaseAddress = new Uri("https://thamco-accounts.azurewebsites.net/api/SysLogs/"));
+            services.AddHttpClient<IStockService, StockService>("Stock Service", x => x.BaseAddress = new Uri("https://thamco-stock-management.azurewebsites.net/"));
         }
     }
 }

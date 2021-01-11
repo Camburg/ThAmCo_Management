@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Management.Enums;
@@ -27,8 +28,7 @@ namespace Management.Services.Real
         {
             List<SystemLogDto> logs;
 
-            _client.BaseAddress = new System.Uri("https://thamco-syslogs.azurewebsites.net/");
-            var response = await _client.GetAsync("/api/logs/");
+            var response = await _client.GetAsync("logs");
 
             if (response.IsSuccessStatusCode)
             {
@@ -59,8 +59,8 @@ namespace Management.Services.Real
                 Id = new Guid(),
                 Date = DateTime.Now
             };
-            _client.BaseAddress = new System.Uri("https://thamco-syslogs.azurewebsites.net/");
-            var response = await _client.PutAsJsonAsync("/api/logs", JsonConvert.SerializeObject(package));
+            var content = new ObjectContent(typeof(SystemLogDto), package, new JsonMediaTypeFormatter());
+            var response = await _client.PutAsync("logs", content);
 
             return response.IsSuccessStatusCode;
         }
