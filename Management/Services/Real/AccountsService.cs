@@ -16,18 +16,18 @@ namespace Management.Services.Real
     {
         private HttpClient _client;
 
-        AccountsService(HttpClient client)
+        public AccountsService(HttpClient client)
         {
             _client = client;
         }
 
         public async Task<List<AccountDto>> GetAccounts()
         {
-            var accounts = new List<AccountDto>();
+            List<AccountDto> accounts;
 
             _client.BaseAddress = new System.Uri("https://thamco-accounts.azurewebsites.net/");
 
-            HttpResponseMessage response = await _client.GetAsync("account/Accounts");
+            var response = await _client.GetAsync("account/Accounts");
 
             if (response.IsSuccessStatusCode)
             {

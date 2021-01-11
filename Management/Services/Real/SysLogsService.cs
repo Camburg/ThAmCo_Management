@@ -2,6 +2,7 @@
 using Management.Interfaces;
 using Management.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -15,16 +16,31 @@ namespace Management.Services.Real
 {
     public class SysLogsService : ISysLogsService
     {
-        private HttpClient _client;
+        private readonly HttpClient _client;
 
-        SysLogsService(HttpClient client)
+        public SysLogsService(HttpClient client)
         {
             _client = client;
         }
 
         public async Task<List<SystemLogDto>> GetAllSystemLogs()
         {
-            throw new NotImplementedException();
+            List<SystemLogDto> logs;
+
+            _client.BaseAddress = new System.Uri("https://thamco-syslogs.azurewebsites.net/");
+            var response = await _client.GetAsync("/api/logs/");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var output = await response.Content.ReadFromJsonAsync<IEnumerable<SystemLogDto>>();
+                logs = output.ToList();
+            }
+            else
+            {
+                logs = new List<SystemLogDto>();
+            }
+
+            return logs;
         }
 
         public async Task<List<SystemLogDto>> GetFilteredSystemLogs(Filter Filter)
@@ -44,7 +60,7 @@ namespace Management.Services.Real
                 Date = DateTime.Now
             };
             _client.BaseAddress = new System.Uri("https://thamco-syslogs.azurewebsites.net/");
-            HttpResponseMessage response = await _client.PutAsJsonAsync("/api/logs", JsonConvert.SerializeObject(package));
+            var response = await _client.PutAsJsonAsync("/api/logs", JsonConvert.SerializeObject(package));
 
             return response.IsSuccessStatusCode;
         }

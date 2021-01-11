@@ -43,8 +43,7 @@ namespace Management
             }
             else 
             {
-                //Change this back to Real later
-                AddMockServices(services);
+                AddRealServices(services);
             }
 
             services.AddControllersWithViews();
@@ -91,9 +90,6 @@ namespace Management
 
         private void AddRealServices(IServiceCollection services)
         {
-            services.AddSingleton<IAccountsService, AccountsService>();
-            services.AddSingleton<ISysLogsService, SysLogsService>();
-            services.AddSingleton<IStockService, StockService>();
             services.AddHttpClient<IAccountsService, AccountsService>("Accounts Service");
             services.AddHttpClient<ISysLogsService, SysLogsService>("System Logs Service");
             services.AddHttpClient<IStockService, StockService>("Stock Service");
