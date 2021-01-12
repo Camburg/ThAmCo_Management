@@ -8,9 +8,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Json;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Management.Enums;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Newtonsoft.Json;
 
 namespace Management.Services.Real
@@ -43,9 +45,26 @@ namespace Management.Services.Real
             return logs;
         }
 
-        public async Task<List<SystemLogDto>> GetFilteredSystemLogs(Filter Filter)
+        public async Task<List<SystemLogDto>> GetFilteredSystemLogs(Filter filter)
         {
-            throw new NotImplementedException();
+            var returnLogs = await GetAllSystemLogs();
+            if (filter.Date != default)
+            {
+                returnLogs = returnLogs.Where(x => x.Date.Date == filter.Date).ToList();
+            }
+            if (filter.ComponentName != null)
+            {
+                returnLogs = returnLogs.Where(x => x.ComponentName.Equals(filter.ComponentName)).ToList();
+            }
+            if (filter.AlertType != AlertType.NONE)
+            {
+                returnLogs = returnLogs.Where(x => x.AlertType == filter.AlertType).ToList();
+            }
+            if (filter.Role != null)
+            {
+                returnLogs = returnLogs.Where(x => x.Role.Equals(filter.Role)).ToList();
+            }
+            return returnLogs;
         }
 
         public async Task<bool> SendSystemLog(string componentName, string details, string role, AlertType alertType)
@@ -56,7 +75,7 @@ namespace Management.Services.Real
                 ComponentName = componentName,
                 Details = details,
                 Role = role,
-                Id = new Guid(),
+                Id = Guid.NewGuid(),
                 Date = DateTime.Now
             };
             var content = new ObjectContent(typeof(SystemLogDto), package, new JsonMediaTypeFormatter());

@@ -96,24 +96,24 @@ namespace Management.Services.Fake
             return Logs.ToList();
         }
 
-        public async Task<List<SystemLogDto>> GetFilteredSystemLogs(Filter Filter)
+        public async Task<List<SystemLogDto>> GetFilteredSystemLogs(Filter filter)
         {
-            List<SystemLogDto> returnLogs = Logs;
-            if (Filter.Date != default)
+            var returnLogs = Logs;
+            if (filter.Date != default)
             {
-                returnLogs = returnLogs.Where(x => x.Date == Filter.Date).ToList();
+                returnLogs = returnLogs.Where(x => x.Date == filter.Date).ToList();
             }
-            if (Filter.ComponentName != null)
+            if (filter.ComponentName != null)
             {
-                returnLogs = returnLogs.Where(x => x.ComponentName.Equals(Filter.ComponentName)).ToList();
+                returnLogs = returnLogs.Where(x => x.ComponentName.Equals(filter.ComponentName)).ToList();
             }
-            if (Filter.AlertType != AlertType.NONE)
+            if (filter.AlertType != AlertType.NONE)
             {
-                returnLogs = returnLogs.Where(x => x.AlertType == Filter.AlertType).ToList();
+                returnLogs = returnLogs.Where(x => x.AlertType == filter.AlertType).ToList();
             }
-            if (Filter.Role != null)
+            if (filter.Role != null)
             {
-                returnLogs = returnLogs.Where(x => x.Role.Equals(Filter.Role)).ToList();
+                returnLogs = returnLogs.Where(x => x.Role.Equals(filter.Role)).ToList();
             }
             return returnLogs;
         }

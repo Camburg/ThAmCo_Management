@@ -78,7 +78,7 @@ namespace Management.Controllers
 
             await _accountsService.UpdateRoles(selectedAccount, role);
 
-            await _sysLogsService.SendSystemLog("Management", "Account Updated", "Admin", AlertType.INFO);
+            await _sysLogsService.SendSystemLog("Management", $"{selectedAccount.Username}: Account Updated", "Admin", AlertType.INFO);
 
             return View("Index", await UpdateAccountList());
         }

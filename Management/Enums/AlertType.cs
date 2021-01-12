@@ -8,8 +8,8 @@ namespace Management.Enums
     public enum AlertType
     {
         NONE = -1,
-        INFO,
-        WARNING,
-        ERROR
+        INFO = 0,
+        WARNING = 1,
+        ERROR = 2
     }
 }

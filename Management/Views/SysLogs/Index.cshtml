@@ -1,0 +1,85 @@
+﻿@model Management.Models.IndexViewModel
+
+@{
+    ViewData["Title"] = "System Logs";
+}
+
+
+
+<h5>System Log Filter</h5>
+<form asp-action="FilterIndex">
+    <div class="row">
+        <div class="col-2">
+            <label asp-for="RoleId" class="control-label"></label>
+            <select asp-for="RoleId" class="form-control" asp-items="Model.Roles"></select>
+            <span asp-validation-for="RoleId" class="text-danger"></span>
+        </div>
+        <div class="col-2">
+            <label asp-for="AlertId" class="control-label"></label>
+            <select asp-for="AlertId" class="form-control" asp-items="Model.AlertTypes"></select>
+            <span asp-validation-for="AlertId" class="text-danger"></span>
+        </div>
+        <div class="col-2">
+            <label asp-for="ComponentId" class="control-label"></label>
+            <select asp-for="ComponentId" class="form-control" asp-items="Model.Components"></select>
+            <span asp-validation-for="ComponentId" class="text-danger"></span>
+        </div>
+        <div class="col-2">
+            <label asp-for="Date" class="control-label"></label>
+            <input type="date" asp-for="Date" class="form-control">
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+        <div class="flex-column">
+            <input type="submit" value="Filter Logs" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+<form asp-action="Index">
+    <div class="flex-column">
+        <input type="submit" value="Remove Filter" class="btn btn-primary" />
+    </div>
+</form>
+<h4>List Of Logs</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Logs.FirstOrDefault().Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Logs.FirstOrDefault().AlertType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Logs.FirstOrDefault().Role)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Logs.FirstOrDefault().ComponentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Logs.FirstOrDefault().Details)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Logs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AlertType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ComponentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Details)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

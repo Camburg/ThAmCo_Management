@@ -29,7 +29,7 @@
 <h4>Select Account Level</h4>
 <form asp-action="SetRoles">
     <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
+        <label asp-for="HighestRole" class="control-label"></label>
         <select asp-for="RoleId" class="form-control" asp-items="Model.Roles"></select>
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>

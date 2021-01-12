@@ -58,7 +58,7 @@ namespace Management
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/SysLogs/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -77,7 +77,7 @@ namespace Management
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=SysLogs}/{action=Index}/{id?}");
             });
         }
 
@@ -91,8 +91,9 @@ namespace Management
         private void AddRealServices(IServiceCollection services)
         {
             services.AddHttpClient<IAccountsService, AccountsService>("Accounts Service", x => x.BaseAddress = new Uri("https://thamco-accounts.azurewebsites.net/api/Account/"));
-            services.AddHttpClient<ISysLogsService, SysLogsService>("System Logs Service", x => x.BaseAddress = new Uri("https://thamco-accounts.azurewebsites.net/api/SysLogs/"));
-            services.AddHttpClient<IStockService, StockService>("Stock Service", x => x.BaseAddress = new Uri("https://thamco-stock-management.azurewebsites.net/"));
+            services.AddHttpClient<ISysLogsService, SysLogsService>("System Logs Service", x => x.BaseAddress = new Uri("https://thamco-syslogs.azurewebsites.net/api/SysLogs/"));
+            //services.AddHttpClient<IStockService, StockService>("Stock Service", x => x.BaseAddress = new Uri("https://thamco-stock-management.azurewebsites.net/"));
+            services.AddScoped<IStockService, FakeStockService>();
         }
     }
 }
