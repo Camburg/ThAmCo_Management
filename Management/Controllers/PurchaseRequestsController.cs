@@ -36,12 +36,12 @@ namespace Management.Controllers
         {
             if (await _stockService.PutRequestStatus(id, true))
             {
-                _sysLogsService.SendSystemLog("Management", "Request Accepted", "Admin", AlertType.INFO);
+                await _sysLogsService.SendSystemLog("Management", "Request Accepted", "Admin", AlertType.INFO);
                 return RedirectToAction("Index");
             }
             else
             {
-                _sysLogsService.SendSystemLog("Management", "Request Acception Failed", "Admin", AlertType.ERROR);
+                await _sysLogsService.SendSystemLog("Management", "Request Acception Failed", "Admin", AlertType.ERROR);
                 return RedirectToAction("Index");
             }
         }
@@ -50,12 +50,12 @@ namespace Management.Controllers
         {
             if (await _stockService.PutRequestStatus(id, false))
             {
-                _sysLogsService.SendSystemLog("Management", "Request Refused", "Admin", AlertType.INFO);
+                await _sysLogsService.SendSystemLog("Management", "Request Refused", "Admin", AlertType.INFO);
                 return RedirectToAction("Index");
             }
             else
             {
-                _sysLogsService.SendSystemLog("Management", "Request Refusal Failed", "Admin", AlertType.ERROR);
+                await _sysLogsService.SendSystemLog("Management", "Request Refusal Failed", "Admin", AlertType.ERROR);
                 return RedirectToAction("Index");
             }
         }
