@@ -36,14 +36,12 @@ namespace Management.Controllers
             return accounts;
         }
 
-        // GET: StaffController
         public async Task<IActionResult> Index()
         {
             //Checks whether the accounts are loaded so that the page can load
             return View(await UpdateAccountList());
         }
 
-        // GET: StaffController/SetRoles
         public async Task<IActionResult> SetRoles(string? id)
         {
             AccountDto selectedAccount = await _accountsService.GetAccount(id);
@@ -68,7 +66,6 @@ namespace Management.Controllers
             }
         }
 
-        // POST: StaffController/SetRoles
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SetRoles(string id, [Bind("RoleId")] SetRolesViewModel model)

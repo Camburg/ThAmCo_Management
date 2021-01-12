@@ -64,7 +64,7 @@ namespace Management.Controllers
             }
         }
 
-        [HttpPost("stock/{itemName}/{cost}")]
+        [HttpPost("api/SysLogs/stock/{itemName}/{cost}")]
         public async Task<IActionResult> PostPurchaseRequest([FromRoute] string itemName, int cost)
         {
             if (await _stockService.PostPurchaseRequest(itemName, cost))
