@@ -52,15 +52,15 @@ namespace Management.Services.Real
             {
                 returnLogs = returnLogs.Where(x => x.Date.Date == filter.Date).ToList();
             }
-            if (filter.ComponentName != null)
+            if (!filter.ComponentName.Equals("ANY"))
             {
                 returnLogs = returnLogs.Where(x => x.ComponentName.Equals(filter.ComponentName)).ToList();
             }
-            if (filter.AlertType != AlertType.NONE)
+            if (filter.AlertType != AlertType.ANY)
             {
                 returnLogs = returnLogs.Where(x => x.AlertType == filter.AlertType).ToList();
             }
-            if (filter.Role != null)
+            if (!filter.Role.Equals("ANY"))
             {
                 returnLogs = returnLogs.Where(x => x.Role.Equals(filter.Role)).ToList();
             }

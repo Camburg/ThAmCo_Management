@@ -86,18 +86,24 @@ namespace Management.Controllers
                 new Role
                 {
                     RoleId = 1,
+                    RoleName = "ANY",
+                    RolesList = new List<String>()
+                },
+                new Role
+                {
+                    RoleId = 2,
                     RoleName = "Customer",
                     RolesList = new List<string>{"Customer"}
                 },
                 new Role
                 {
-                    RoleId = 2,
+                    RoleId = 3,
                     RoleName = "Staff",
                     RolesList = new List<string>{"Customer", "Staff"}
                 },
                 new Role
                 {
-                    RoleId = 3,
+                    RoleId = 4,
                     RoleName = "Admin",
                     RolesList = new List<string>{"Customer", "Staff", "Admin"}
                 }
@@ -116,7 +122,7 @@ namespace Management.Controllers
                 new Alert()
                 {
                     AlertId = 1,
-                    AlertName = AlertType.NONE
+                    AlertName = AlertType.ANY
                 },
                 new Alert()
                 {
@@ -141,54 +147,59 @@ namespace Management.Controllers
         {
             List<Component> componentList = new List<Component>
             {
-                new Component()
+                new Component
                 {
                     ComponentId = 1,
-                    ComponentName = "accounts"
+                    ComponentName = "ANY"
                 },
                 new Component()
                 {
                     ComponentId = 2,
-                    ComponentName = "profile"
+                    ComponentName = "accounts"
                 },
                 new Component()
                 {
                     ComponentId = 3,
-                    ComponentName = "orders"
+                    ComponentName = "profile"
                 },
                 new Component()
                 {
                     ComponentId = 4,
-                    ComponentName = "invoices"
+                    ComponentName = "orders"
                 },
                 new Component()
                 {
                     ComponentId = 5,
-                    ComponentName = "catalogue"
+                    ComponentName = "invoices"
                 },
                 new Component()
                 {
                     ComponentId = 6,
-                    ComponentName = "reviews"
+                    ComponentName = "catalogue"
                 },
                 new Component()
                 {
                     ComponentId = 7,
-                    ComponentName = "stockmanagement"
+                    ComponentName = "reviews"
                 },
                 new Component()
                 {
                     ComponentId = 8,
-                    ComponentName = "resales"
+                    ComponentName = "stockmanagement"
                 },
                 new Component()
                 {
                     ComponentId = 9,
-                    ComponentName = "management"
+                    ComponentName = "resales"
                 },
                 new Component()
                 {
                     ComponentId = 10,
+                    ComponentName = "management"
+                },
+                new Component()
+                {
+                    ComponentId = 11,
                     ComponentName = "systemlogs"
                 }
 

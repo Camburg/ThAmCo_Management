@@ -7,7 +7,7 @@ namespace Management.Enums
 {
     public enum AlertType
     {
-        NONE = -1,
+        ANY = -1,
         INFO = 0,
         WARNING = 1,
         ERROR = 2

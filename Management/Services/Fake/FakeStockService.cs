@@ -90,5 +90,10 @@ namespace Management.Services.Fake
         {
             return requests;
         }
+
+        public async Task<PurchaseRequest> GetSpecificRequest(string id)
+        {
+            return requests.FirstOrDefault(x => x.Id.ToString().Equals(id));
+        }
     }
 }

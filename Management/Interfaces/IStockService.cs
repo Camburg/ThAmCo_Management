@@ -14,5 +14,7 @@ namespace Management.Interfaces
         public Task<bool> PostPurchaseRequest([FromRoute] string itemName, int cost);
 
         public Task<List<PurchaseRequest>> GetPurchaseRequests();
+
+        public Task<PurchaseRequest> GetSpecificRequest(string id);
     }
 }

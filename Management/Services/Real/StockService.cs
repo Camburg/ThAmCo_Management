@@ -69,5 +69,11 @@ namespace Management.Services.Real
             var systemLogs = await _context.PurchaseRequests.ToListAsync();
             return systemLogs;
         }
+
+        public async Task<PurchaseRequest> GetSpecificRequest(string id)
+        {
+            var systemLogs = await _context.PurchaseRequests.ToListAsync();
+            return systemLogs.FirstOrDefault(x => x.Id.ToString().Equals(id));
+        }
     }
 }
